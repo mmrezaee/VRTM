@@ -61,7 +61,20 @@ optional arguments:
   --use_word2vec        use word2vec
 ```
 # Running the code:
+To recreate results (Table 1, Table 2) from the paper, run the following with the corresponding parameters e.g., GPU 1:
+
+$DATA : IMDB, APNEWS, BNC
+
+$FREQUENCY_LIMIT: 112 (IMDB), 120 (APNEWS), (111) BNC
+
+$DIM_EMB: 300, 400
+
+$NUM_TOPICS: 10, 30, 50
+
+$RNN_MODEL: LSTM, basicRNN, GRU
+
+Use --use_word2vec for word2vec pre-trained word embeddings.
 ```
-CUDA_VISIBLE_DEVICES=1 python main.py --prior 0.5 --dataset apnews --batch_size 100 --num_epochs 40 --frequency_limit 120 --max_seqlen 45 --num_units 600 --num_hidden 500 --dim_emb 400 --num_topics 50 --num_layers 1 --learning_rate 0.001 --dropout 0.5 --rnn_model LSTM  --decay_epoch 20 --lstm_norm 0 --generate_len 60
+CUDA_VISIBLE_DEVICES=1 python main.py --prior 0.5 --dataset $DATA --batch_size 100 --num_epochs 40 --frequency_limit $FREQUENCY_LIMIT --max_seqlen 45 --num_units 600 --num_hidden 500 --dim_emb $DIM_EMB --num_topics $NUM_TOPICS --num_layers 1 --learning_rate 0.001 --dropout 0.5 --RNN_MODEL LSTM  --decay_epoch 20 --lstm_norm 0 --generate_len 60
 ```
 
