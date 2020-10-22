@@ -23,7 +23,7 @@ def print_top_words(beta, feature_names, n_top_words=20,name_beta=" "):
 
 
 class vsTopic(object):
-  def __init__(self, num_units, dim_emb, vocab_size, num_topics, num_hidden, num_layers, stop_words,max_seqlen,vocab,use_word2vec=False):
+  def __init__(self, num_units, dim_emb, vocab_size, num_topics, num_hidden, num_layers, stop_words,max_seqlen,vocab,use_word2vec=False,word2vec_path='/scratch/mehdi/word2vec/GoogleNews-vectors-negative300.bin'):
     self.num_units = num_units
     self.dim_emb = dim_emb
     self.num_topics = num_topics
@@ -39,7 +39,7 @@ class vsTopic(object):
     self.use_word2vec = use_word2vec
     if self.use_word2vec:
         print('Using word2vec pretrained embedding')
-        self.word2vec = KeyedVectors.load_word2vec_format('/scratch/mehdi/word2vec/GoogleNews-vectors-negative300.bin',binary=True)
+        self.word2vec = KeyedVectors.load_word2vec_format(word2vec_path,binary=True)
         self.pretrained_keys = self.word2vec.vocab.keys()
         self.vocab_keys = self.vocab.keys()
         self.pretrained_vecs = []
@@ -202,7 +202,8 @@ class Train(object):
         stop_words = self.params["stop_words"],
         max_seqlen = self.params["max_seqlen"],
         vocab = self.params["vocab"],
-        use_word2vec= self.params["use_word2vec"]
+        use_word2vec= self.params["use_word2vec"],
+        word2vec_path= self.params["word2vec_path"]
         )
 
     # train output

@@ -40,6 +40,7 @@ parser.add_argument("--generate_len",type=int,default=85,help="The length of the
 
 parser.add_argument("--init_from", type=str, default=None, help="init_from")
 parser.add_argument("--save_dir", type=str, default="results", help="dir for saving the model")
+parser.add_argument("--word2vec_path", type=str, default=None, help="dir for GoogleNews-vectors-negative300.bin")
 parser.add_argument('--use_word2vec', action='store_true', help='use word2vec')
 
 
