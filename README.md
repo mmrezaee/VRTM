@@ -61,7 +61,7 @@ optional arguments:
   --use_word2vec        use word2vec
 ```
 # Running the code:
-To recreate results (Table 1, Table 2) from the paper, run the following with the corresponding parameters e.g., GPU 1:
+To recreate our model results (Table 1, Table 2) from the paper, run the following with the corresponding parameters e.g., GPU 1:
 
 $DATA : IMDB, APNEWS, BNC
 
