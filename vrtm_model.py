@@ -203,7 +203,6 @@ class Train(object):
         max_seqlen = self.params["max_seqlen"],
         vocab = self.params["vocab"],
         use_word2vec= self.params["use_word2vec"],
-        word2vec_path= self.params["word2vec_path"]
         )
 
     # train output

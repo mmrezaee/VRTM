@@ -18,4 +18,3 @@ CUDA_VISIBLE_DEVICES=1\
     --decay_epoch 20\
     --lstm_norm 0\
     --generate_len 60\
-    --use_word2vec \
