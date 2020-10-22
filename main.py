@@ -40,6 +40,7 @@ parser.add_argument("--generate_len",type=int,default=85,help="The length of the
 
 parser.add_argument("--init_from", type=str, default=None, help="init_from")
 parser.add_argument("--save_dir", type=str, default="results", help="dir for saving the model")
+parser.add_argument('--use_word2vec', action='store_true', help='use word2vec')
 
 
 
@@ -178,6 +179,7 @@ def main():
   params_str=str(vars(params))
 
   params.stop_words = np.asarray([1 if i in stop_words_ids else 0 for i in range(params.vocab_size)])
+  params.vocab = vocab
   save_file_name=str(params.dataset)+'_k_'+str(params.num_topics)+'_prior_'+str(params.prior)
 
   save_info=[params_str,save_file_name]

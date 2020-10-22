@@ -6,6 +6,9 @@ import tqdm
 from tqdm import tqdm
 from tensorflow import distributions as dist
 from tensorflow.python.keras.layers import LSTMCell,Dropout,StackedRNNCells,RNN
+import gensim
+from gensim.test.utils import datapath
+from gensim.models import KeyedVectors
 
 def print_top_words(beta, feature_names, n_top_words=20,name_beta=" "):
   beta_list=[]
@@ -20,18 +23,34 @@ def print_top_words(beta, feature_names, n_top_words=20,name_beta=" "):
 
 
 class vsTopic(object):
-  def __init__(self, num_units, dim_emb, vocab_size, num_topics, num_hidden, num_layers, stop_words,max_seqlen):
+  def __init__(self, num_units, dim_emb, vocab_size, num_topics, num_hidden, num_layers, stop_words,max_seqlen,vocab,use_word2vec=False):
     self.num_units = num_units
     self.dim_emb = dim_emb
     self.num_topics = num_topics
     self.num_hidden = num_hidden
     self.num_layers = num_layers
+    self.vocab = vocab
     self.vocab_size = vocab_size
     self.stop_words = stop_words # vocab size of 01, 1 = stop_words
     self.max_seqlen=max_seqlen
     self.non_stop_len=int(np.where(stop_words==1)[0][0])
     self.theta_weight=tf.get_variable(shape=[self.dim_emb,self.max_seqlen,self.num_topics],name="theta_weight")
     self.paddings=tf.constant([[0,0],[0,self.vocab_size-self.non_stop_len]])
+    self.use_word2vec = use_word2vec
+    if self.use_word2vec:
+        print('Using word2vec pretrained embedding')
+        self.word2vec = KeyedVectors.load_word2vec_format('/scratch/mehdi/word2vec/GoogleNews-vectors-negative300.bin',binary=True)
+        self.pretrained_keys = self.word2vec.vocab.keys()
+        self.vocab_keys = self.vocab.keys()
+        self.pretrained_vecs = []
+        for key in self.vocab_keys:
+            if key in self.pretrained_keys:
+                self.pretrained_vecs.append(np.array(self.word2vec[key],dtype=np.float32))
+            else:
+                self.pretrained_vecs.append(np.array([0]*self.dim_emb,dtype=np.float32))
+        self.pretrained_vecs = np.vstack(self.pretrained_vecs)
+    else:
+        print('Training embedding from scratch')
 
     with tf.name_scope("beta"):
       ''' This matrix reserves the topics '''
@@ -39,7 +58,10 @@ class vsTopic(object):
 
 
     with tf.name_scope("embedding"):
-      self.embedding = tf.get_variable("embedding", shape=[self.vocab_size, self.dim_emb], dtype=tf.float32)
+        if self.use_word2vec:
+            self.embedding = tf.get_variable("embedding",  initializer = self.pretrained_vecs, dtype=tf.float32)
+        else:
+            self.embedding = tf.get_variable("embedding", shape=[self.vocab_size, self.dim_emb], dtype=tf.float32)
 
 
   def forward(self, inputs,params, mode="Train"):
@@ -179,6 +201,8 @@ class Train(object):
         num_hidden = self.params["num_hidden"],
         stop_words = self.params["stop_words"],
         max_seqlen = self.params["max_seqlen"],
+        vocab = self.params["vocab"],
+        use_word2vec= self.params["use_word2vec"]
         )
 
     # train output

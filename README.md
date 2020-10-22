@@ -4,6 +4,7 @@
 # Requirements
 - python3.5 
 - tensorflow 1.13
+- gensim 3.8.8
 
 # Data Format
 - One line per document
@@ -20,7 +21,7 @@ usage: main.py [-h] [--dataset DATASET] [--batch_size BATCH_SIZE]
                [--rnn_model RNN_MODEL] [--decay_epoch DECAY_EPOCH]
                [--lstm_norm LSTM_NORM] [--prior PRIOR]
                [--generate_len GENERATE_LEN] [--init_from INIT_FROM]
-               [--save_dir SAVE_DIR]
+               [--save_dir SAVE_DIR] [--use_word2vec]
 
 optional arguments:
   -h, --help            show this help message and exit
@@ -57,6 +58,7 @@ optional arguments:
   --init_from INIT_FROM
                         init_from
   --save_dir SAVE_DIR   dir for saving the model
+  --use_word2vec        use word2vec
 ```
 # Running the code:
 ```
