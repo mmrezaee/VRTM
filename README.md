@@ -1,5 +1,10 @@
 # Variational Recurrent Topic Model
 <!-- ![alt-text-1]("title-1") ![alt-text-2](image2.png "title-2") -->
+The implementation of NeurIPS 2020 paper 
+["A Discrete Variational Recurrent Topic Model without the Reparametrization Trick".](https://arxiv.org/abs/2010.12055)
+
+This Tensorflow code implements the model and reproduces the results from the paper.
+
 <img src="figs/vrtm_Graph.png" width="265"/> <img src="figs/vrtm_EncDec.png" width="550"/> 
 # Requirements
 - python3.5 
