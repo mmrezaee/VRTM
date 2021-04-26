@@ -6,6 +6,15 @@ The implementation of NeurIPS 2020 paper
 This Tensorflow code implements the model and reproduces the results from the paper.
 
 <img src="figs/vrtm_Graph.png" width="265"/> <img src="figs/vrtm_EncDec.png" width="550"/> 
+# Citing this work
+Please cite if you find our work helpful to your research:
+
+    @article{rezaee2020discrete,
+      title={A Discrete Variational Recurrent Topic Model without the Reparametrization Trick},
+      author={Rezaee, Mehdi and Ferraro, Francis},
+      journal={Advances in neural information processing systems},
+      year={2020}
+    }
 # Requirements
 - python3.5 
 - tensorflow 1.13
@@ -13,7 +22,7 @@ This Tensorflow code implements the model and reproduces the results from the pa
 
 # Data Format
 - One line per document
-- [ACL2017 Paper dataset (AP News, BNC and IMDB)](https://ibm.box.com/s/ls61p8ovc1y87w45oa02zink2zl7l6z4)
+- [ACL2017 Paper dataset (AP News, BNC and IMDB)](https://drive.google.com/drive/folders/1n4s1Tz3RcJFmp2Itg5MWjoCMe_KYEbfj)
 
 ## main.py arguments:
 ```
